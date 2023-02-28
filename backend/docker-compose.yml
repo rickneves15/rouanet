@@ -1,0 +1,63 @@
+version: "3.9"
+services:
+    app:
+        build:
+            args:
+                user: rickneves
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - rouanet
+        depends_on:
+            - mysql
+            - nginx
+
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - 8000:80
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx:/etc/nginx/conf.d
+        networks:
+            - rouanet
+
+    mysql:
+        # image: mysql:5.7
+        image: mysql
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - ./.docker/mysql/data:/var/lib/mysql
+            # - ./.docker/data2.sql:/data2.sql
+        ports:
+            - "3388:3306"
+        networks:
+            - rouanet
+
+    queue:
+        image: especializati/laravel9-app
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+            - app
+        networks:
+            - rouanet
+
+    redis:
+        image: redis:latest
+        networks:
+            - rouanet
+networks:
+    rouanet:
+        driver: bridge

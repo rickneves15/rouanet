@@ -1,0 +1,163 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": " Documentação API Rouanet",
+        "description": "Documentação API Rouanet",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get List Projects",
+                "operationId": "a525ec2a1df2ff19ef91bb9a14f32eca",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id_projeto": {
+                                                        "type": "number"
+                                                    },
+                                                    "pronac": {
+                                                        "type": "string"
+                                                    },
+                                                    "ano_projeto": {
+                                                        "type": "string"
+                                                    },
+                                                    "nome": {
+                                                        "type": "string"
+                                                    },
+                                                    "segmento": {
+                                                        "type": "string"
+                                                    },
+                                                    "area": {
+                                                        "type": "string"
+                                                    },
+                                                    "uf": {
+                                                        "type": "string"
+                                                    },
+                                                    "municipio": {
+                                                        "type": "string"
+                                                    },
+                                                    "data_inicio": {
+                                                        "type": "string"
+                                                    },
+                                                    "data_termino": {
+                                                        "type": "string"
+                                                    },
+                                                    "situacao": {
+                                                        "type": "string"
+                                                    },
+                                                    "mecanismo": {
+                                                        "type": "string"
+                                                    },
+                                                    "enquadramento": {
+                                                        "type": "string"
+                                                    },
+                                                    "valor_captado": {
+                                                        "type": "string"
+                                                    },
+                                                    "valor_aprovado": {
+                                                        "type": "string"
+                                                    },
+                                                    "acessibilidade": {
+                                                        "type": "string"
+                                                    },
+                                                    "objetivos": {
+                                                        "type": "string"
+                                                    },
+                                                    "justificativa": {
+                                                        "type": "string"
+                                                    },
+                                                    "etapa": {
+                                                        "type": "string"
+                                                    },
+                                                    "ficha_tecnica": {
+                                                        "type": "string"
+                                                    },
+                                                    "impacto_ambiental": {
+                                                        "type": "string"
+                                                    },
+                                                    "especificacao_tecnica": {
+                                                        "type": "string"
+                                                    },
+                                                    "providencia": {
+                                                        "type": "string"
+                                                    },
+                                                    "democratizacao": {
+                                                        "type": "string"
+                                                    },
+                                                    "sinopse": {
+                                                        "type": "string"
+                                                    },
+                                                    "resumo": {
+                                                        "type": "string"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string"
+                                                    },
+                                                    "valor_projeto": {
+                                                        "type": "string"
+                                                    },
+                                                    "outras_fontes": {
+                                                        "type": "string"
+                                                    },
+                                                    "valor_proposta": {
+                                                        "type": "string"
+                                                    },
+                                                    "valor_solicitado": {
+                                                        "type": "string"
+                                                    },
+                                                    "objetivo": {
+                                                        "type": "string"
+                                                    },
+                                                    "estrategia_execucao": {
+                                                        "type": "string"
+                                                    },
+                                                    "link_incentivadores": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": " Api Endpoints"
+        }
+    ]
+}
