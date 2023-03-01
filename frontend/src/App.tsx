@@ -1,34 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  Box,
+  ChakraProvider,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Spacer,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { IProject } from "./@types/project";
+import ListProjects from "./Components/ListProjects";
+import ProjectsService from "./Services/ProjectsService";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "./Utils/styles/swiper.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [projects, setProjects] = useState<IProject[]>([]);
+
+  const fetchProjects = async () => {
+    try {
+      const response = await ProjectsService.fetchAll();
+      console.log(response.data.data);
+      setProjects(response.data.data);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <ChakraProvider>
+      <Flex
+        minWidth="full"
+        minHeight="100vh"
+        justifyContent="center"
+        alignItems="center"
+        direction="column"
+      >
+        <Container minWidth="full" maxHeight="600px">
+          <Heading size="md" mb="3">
+            Ver outros Projetos do Proponente
+          </Heading>
+
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={30}
+            navigation={true}
+            grabCursor={true}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
+          >
+            {projects.map((project, index) => (
+              <SwiperSlide key={index}>
+                <ListProjects project={project} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Container>
+      </Flex>
+    </ChakraProvider>
+  );
 }
 
-export default App
+export default App;
